@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load blog_tags %}
+
+{% block decribes %}
+<title>{{ post.title}}|Python</title>
+<meta name="description" content="{{ post.title}}">
+{% endblock decribes %}
+
+{% block rank %}
+<aside class="list music aside section"  style="margin-bottom: 30px;">
+    <div class="section-left">
+        <div class="content">
+          <img src="{% static 'Wechat.jpeg' %}" width=100%; height=100%; alt="python" />
+        </div><!--//content-->
+    </div><!--//section-inner-->
+</aside><!--//section-->
+{% endblock rank %}
+
+{% block aggregation %}
+<div class="section-inners">
+  <div style="margin-bottom: 10px;">
+    <span class="post-created_time"><a>{{ post.modified_time }}</a>&nbsp;&nbsp;</span>
+    <span class="post-category">分类：<a href="{% url 'blog:category' slug=post.category.slug %}">{{ post.category.name }}</a>&nbsp;&nbsp;&nbsp;标签：</span>
+    {% for t in post.tags.all %}
+    <span class="post-tags" style="color: #434343;"><a href="{% url 'blog:tag' slug=t.slug %}">{{ t.name }}</a>&nbsp;</span>
+    {% endfor %}
+    <span class="views-count" style="color: #434343;">阅读数：{{ post.views }}</span>
+    <div class="bshare-custom" style=“white-space:nowrap;display:inline-block;”>
+     <a href="{{ post.get_absolute_url }}" id="bshare-shareto" class="bshare-more"></a>
+
+       <a class="bshare-clipboard"></a>
+       <a class="bshare-weixin"></a>
+       <!-- 在这里添加更多平台 -->
+
+     <!-- <a title="更多平台" id="bshare-more-icon" class="bshare-more">更多...</a> -->
+    </div>
+    <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#uuid=3ed0bd91-1e97-40bc-8393-ec0f9cdb37c9&style=-1"></script>
+    <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC1.js"></script>
+  </div>
+</div><!--//secton-inner-->
+{% endblock aggregation %}
+
+{% block primary %}
+<section class="latest section">
+     <div class="section-inner">
+         <div class="content">
+             <div class="item featured text-center">
+                 <h2 class="title" style="font-size: 40px;margin-top: 30px;margin-bottom: 70px;">{{ post.title}}</h2>
+
+                 <!-- <p class="summary">{{ post.excerpt }}</p> -->
+                 <div class="desc text-left">
+                     <p>{{ post.body|safe }}</p>
+                 </div><!--//desc-->
+                 <!-- <a class="btn btn-cta-secondary" href="{{ post.get_absolute_url }}" target="_blank"><i class="fas fa-thumbs-up"></i> Back my blog</a> -->
+
+                 <div style='border:1px solid #000; border-radius:10px;margin-top: 50px;'>
+                  <p style='margin:10px 0 10px;'><span>转载须包含本声明，保持本文完整，并以超链接形式注明作者<strong><a href="http://www.xunwi.com" target="_blank">蛋炒饭</a></strong>和本文原始地址:<br><a href="{{ post.get_absolute_url }}" target="_top">http://www.xunwi.com/{{ post.get_absolute_url }}</a></p>
+                 </div>
+             </div><!--//item-->
+         </div><!--//content-->
+     </div><!--//section-inner-->
+ </section><!--//section-->
+ {% endblock primary %}

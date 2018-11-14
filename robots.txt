@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /bin
+Disallow: /lib
+Disallow: /static/
+Disallow: /blog/static/
+Disallow: .out$
+
+Allow: /

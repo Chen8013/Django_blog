@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load blog_tags %}
+
+
+{% block decribes %}
+<title>Python for data and ML and blockchain</title>
+<meta name="description" content="Python,大数据,人工智能,区块链">
+<meta name="keywords" content="Python">
+{% endblock decribes %}
+
+{% block rank %}
+<aside class="list music aside section"  style="margin-bottom: 30px;">
+    <div class="section-left">
+        <h2 class="heading">阅读排行</h2>
+        <div class="content">
+          {% get_recent_posts as recent_post_list %}
+          <ul class="list-unstyled">
+            {% for post in recent_post_list %}
+              <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+            {% empty %}
+            {% endfor %}
+          </ul>
+        </div><!--//content-->
+    </div><!--//section-inner-->
+</aside><!--//section-->
+{% endblock rank %}
+
+{% block primary %}
+  {% for post in post_list %}
+    <section class="about section">
+        <div class="section-right">
+            <h2 class="heading"><a href="{{ post.get_absolute_url }}" style="font-size: 30px;" target="_blank">{{ post.title }}</a></h2>
+            <div class="content">
+              <span class="post-created_time"><a>{{ post.created_time }}</a>&nbsp;&nbsp;</span>
+              <span class="post-category">分类：<a href="{% url 'blog:category' slug=post.category.slug %}">{{ post.category.name }}</a>&nbsp;&nbsp;&nbsp;标签：</span>
+              {% for t in post.tags.all %}
+              <span class="post-tags" style="color: #434343;"><a href="{% url 'blog:tag' slug=t.slug %}">{{ t.name }}</a>&nbsp;</span>
+              {% endfor %}
+              <span class="views-count" style="color: #434343;">阅读数：{{ post.views }}</span>
+              <span class="bshare-custom" style=“white-space:nowrap;”>
+               <a href="{{ post.get_absolute_url }}" id="bshare-shareto" class="bshare-more"></a>
+
+                 <a class="bshare-clipboard"></a>
+                 <a class="bshare-email"></a>
+                 <a class="bshare-weixin"></a>
+                 <!-- 在这里添加更多平台 -->
+
+               <!-- <a title="更多平台" id="bshare-more-icon" class="bshare-more">更多...</a> -->
+              </span>
+              <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#uuid=3ed0bd91-1e97-40bc-8393-ec0f9cdb37c9&style=-1"></script>
+              <script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC1.js"></script>
+            </div><!--//content-->
+        </div><!--//section-inner-->
+    </section><!--//section-->
+  {% endfor %}
+{% endblock primary %}
